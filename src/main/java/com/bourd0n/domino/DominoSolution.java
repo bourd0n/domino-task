@@ -5,17 +5,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class DominoesSolution {
+public class DominoSolution {
     private Set<Domino> dominoes;
     private List<Integer> tailNumbers;
 
-    public DominoesSolution(Set<Domino> dominoes, List<Integer> tailNumbers) {
+    public DominoSolution(Set<Domino> dominoes, List<Integer> tailNumbers) {
         //todo: check validness
         this.dominoes = new HashSet<>(dominoes);
         this.tailNumbers = new ArrayList<>(tailNumbers);
     }
 
-    public DominoesSolution(DominoesSolution solution) {
+    public DominoSolution(DominoSolution solution) {
         this(solution.dominoes, solution.tailNumbers);
     }
 
