@@ -42,65 +42,57 @@ public class DominoTaskResolver {
         }
         List<Integer> currentTailNumbers = currentSolution.getTailNumbers();
         for (Domino domino : remainingDominoes) {
+            List<Integer> nextTailNumbers;
             if (domino.isDouble() && currentTailNumbers.contains(domino.left())) {
-                //1 - add as double
-                DominoSolution nextSolution = new DominoSolution(currentSolution);
+                //add as double
                 //add 2 sides to add new domino
-                nextSolution.getTailNumbers().add(domino.left());
-                nextSolution.getTailNumbers().add(domino.left());
-                nextSolution.getDominoes().add(domino);
+                nextTailNumbers = new ArrayList<>(currentSolution.getTailNumbers());
+                nextTailNumbers.add(domino.left());
+                nextTailNumbers.add(domino.left());
 
-                Set<Domino> newRemainingDominoes = new HashSet<>(remainingDominoes);
-                newRemainingDominoes.remove(domino);
-
-                nextSolution = processNextDomino(nextSolution, newRemainingDominoes);
+                DominoSolution nextSolution = createNextSolution(currentSolution,
+                        remainingDominoes, domino, nextTailNumbers);
                 if (nextSolution != null) {
                     return nextSolution;
                 }
-//                //2 - add as non double - looks like no reason for first problem
-//                nextSolution = new DominoSolution(currentSolution);
-//                //sides don't changed
-//                nextSolution.getDominoes().add(domino);
-//
-//                newRemainingDominoes = new HashSet<>(remainingDominoes);
-//                newRemainingDominoes.remove(domino);
-//
-//                nextSolution = processNextDomino(nextSolution, newRemainingDominoes);
-//                if (nextSolution != null) {
-//                    return nextSolution;
-//                }
-            } else if (currentTailNumbers.contains(domino.left())) {
-                DominoSolution nextSolution = new DominoSolution(currentSolution);
-                //remove left tail and add right tail
-                nextSolution.getTailNumbers().remove((Integer) domino.left());
-                nextSolution.getTailNumbers().add(domino.right());
-                nextSolution.getDominoes().add(domino);
-
-                Set<Domino> newRemainingDominoes = new HashSet<>(remainingDominoes);
-                newRemainingDominoes.remove(domino);
-
-                nextSolution = processNextDomino(nextSolution, newRemainingDominoes);
-                if (nextSolution != null) {
-                    return nextSolution;
+                //add as non double - looks like no reason for first problem
+            } else {
+                if (currentTailNumbers.contains(domino.left())) {
+                    //remove left tail and add right tail
+                    nextTailNumbers = new ArrayList<>(currentSolution.getTailNumbers());
+                    nextTailNumbers.remove((Integer) domino.left());
+                    nextTailNumbers.add(domino.right());
+                    DominoSolution nextSolution = createNextSolution(currentSolution,
+                            remainingDominoes, domino, nextTailNumbers);
+                    if (nextSolution != null) {
+                        return nextSolution;
+                    }
                 }
-            } else if (currentTailNumbers.contains(domino.right())) {
-                DominoSolution nextSolution = new DominoSolution(currentSolution);
-                //remove right tail and add left tail
-                nextSolution.getTailNumbers().remove((Integer) domino.right());
-                nextSolution.getTailNumbers().add(domino.left());
-                nextSolution.getDominoes().add(domino);
-
-                Set<Domino> newRemainingDominoes = new HashSet<>(remainingDominoes);
-                newRemainingDominoes.remove(domino);
-
-                nextSolution = processNextDomino(nextSolution, newRemainingDominoes);
-                if (nextSolution != null) {
-                    return nextSolution;
+                if (currentTailNumbers.contains(domino.right())) {
+                    //remove right tail and add left tail
+                    nextTailNumbers = new ArrayList<>(currentSolution.getTailNumbers());
+                    nextTailNumbers.remove((Integer) domino.right());
+                    nextTailNumbers.add(domino.left());
+                    DominoSolution nextSolution = createNextSolution(currentSolution,
+                            remainingDominoes, domino, nextTailNumbers);
+                    if (nextSolution != null) {
+                        return nextSolution;
+                    }
                 }
             }
         }
         //solution not found
         return null;
+    }
+
+    private DominoSolution createNextSolution(DominoSolution currentSolution, Set<Domino> remainingDominoes,
+                                              Domino currentProcessedDomino, List<Integer> nextTailNumbers) {
+        List<Domino> currentSolutionDominoes = new ArrayList<>(currentSolution.getDominoes());
+        currentSolutionDominoes.add(currentProcessedDomino);
+        DominoSolution nextSolution = new DominoSolution(currentSolutionDominoes, nextTailNumbers);
+        Set<Domino> newRemainingDominoes = new HashSet<>(remainingDominoes);
+        newRemainingDominoes.remove(currentProcessedDomino);
+        return processNextDomino(nextSolution, newRemainingDominoes);
     }
 
 }
