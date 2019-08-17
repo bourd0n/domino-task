@@ -1,17 +1,15 @@
 package com.bourd0n.domino;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class DominoSolution {
-    private Set<Domino> dominoes;
+    private List<Domino> dominoes;
     private List<Integer> tailNumbers;
 
-    public DominoSolution(Set<Domino> dominoes, List<Integer> tailNumbers) {
+    public DominoSolution(List<Domino> dominoes, List<Integer> tailNumbers) {
         //todo: check validness
-        this.dominoes = new HashSet<>(dominoes);
+        this.dominoes = new ArrayList<>(dominoes);
         this.tailNumbers = new ArrayList<>(tailNumbers);
     }
 
@@ -19,11 +17,11 @@ public class DominoSolution {
         this(solution.dominoes, solution.tailNumbers);
     }
 
-    public Set<Domino> getDominoes() {
+    public List<Domino> getDominoes() {
         return dominoes;
     }
 
-    public void setDominoes(Set<Domino> dominoes) {
+    public void setDominoes(List<Domino> dominoes) {
         this.dominoes = dominoes;
     }
 

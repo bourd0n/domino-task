@@ -22,7 +22,7 @@ public class DominoTaskResolver {
                     Arrays.asList(domino.left(), domino.left(), domino.left(), domino.left())
                     : Arrays.asList(domino.left(), domino.right());
 
-            DominoSolution solution = new DominoSolution(Collections.singleton(domino), currentTailNumbers);
+            DominoSolution solution = new DominoSolution(Collections.singletonList(domino), currentTailNumbers);
 
             solution = processNextDomino(solution, remainingDominoes);
 
@@ -57,18 +57,18 @@ public class DominoTaskResolver {
                 if (nextSolution != null) {
                     return nextSolution;
                 }
-                //2 - add as non double
-                nextSolution = new DominoSolution(currentSolution);
-                //sides don't changed
-                nextSolution.getDominoes().add(domino);
-
-                newRemainingDominoes = new HashSet<>(remainingDominoes);
-                newRemainingDominoes.remove(domino);
-
-                nextSolution = processNextDomino(nextSolution, newRemainingDominoes);
-                if (nextSolution != null) {
-                    return nextSolution;
-                }
+//                //2 - add as non double - looks like no reason for first problem
+//                nextSolution = new DominoSolution(currentSolution);
+//                //sides don't changed
+//                nextSolution.getDominoes().add(domino);
+//
+//                newRemainingDominoes = new HashSet<>(remainingDominoes);
+//                newRemainingDominoes.remove(domino);
+//
+//                nextSolution = processNextDomino(nextSolution, newRemainingDominoes);
+//                if (nextSolution != null) {
+//                    return nextSolution;
+//                }
             } else if (currentTailNumbers.contains(domino.left())) {
                 DominoSolution nextSolution = new DominoSolution(currentSolution);
                 //remove left tail and add right tail

@@ -62,6 +62,29 @@ public class DominoTaskResolverConnectionTest {
                         new Domino(5, 1),
                         new Domino(0, 5),
                         new Domino(0, 6)
+                ),
+                newHashSet(
+                        new Domino(2, 1),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(5, 2),
+                        new Domino(5, 1),
+                        new Domino(0, 5),
+                        new Domino(5, 3),
+                        new Domino(0, 6),
+                        new Domino(1, 1)
+                ),
+                newHashSet(
+                        new Domino(2, 1),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(5, 2),
+                        new Domino(5, 1),
+                        new Domino(0, 5),
+                        new Domino(5, 3),
+                        new Domino(0, 6),
+                        new Domino(4, 5),
+                        new Domino(1, 1)
                 )
         );
     }
@@ -69,8 +92,8 @@ public class DominoTaskResolverConnectionTest {
 
     @ParameterizedTest
     @MethodSource
-    public void testDominoNotConnected(Set<Domino> dominos) {
-        assertFalse(dominoTaskResolver.checkDominoesAreConnectable(dominos));
+    public void testDominoNotConnected(Set<Domino> dominoes) {
+        assertFalse(dominoTaskResolver.checkDominoesAreConnectable(dominoes));
     }
 
 
@@ -103,6 +126,19 @@ public class DominoTaskResolverConnectionTest {
                         new Domino(5, 2),
                         new Domino(5, 1),
                         new Domino(3, 4)
+                ),
+                newHashSet(
+                        new Domino(2, 1),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(5, 2),
+                        new Domino(5, 1),
+                        new Domino(0, 5),
+                        new Domino(0, 3),
+                        new Domino(5, 3),
+                        new Domino(6, 6),
+                        new Domino(4, 5),
+                        new Domino(1, 1)
                 )
         );
     }
