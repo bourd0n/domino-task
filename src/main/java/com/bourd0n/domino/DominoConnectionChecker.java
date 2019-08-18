@@ -42,7 +42,7 @@ public class DominoConnectionChecker {
         if (dominoes == null) {
             throw new IllegalArgumentException("Set of dominoes should be not null");
         }
-        if (dominoes.size() < 2) {
+        if (dominoes.size() < 2 || dominoes.size() > 28) {
             throw new IllegalArgumentException("Set of dominoes should be of size >=2 and <=28, but " + dominoes.size() +
                     " was passed");
         }
