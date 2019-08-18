@@ -184,7 +184,27 @@ public class DominoConnectionTest {
                         new Domino(3, 4),
                         new Domino(5, 1),
                         new Domino(3, 1)
-                ), LINE_SIMPLE_TYPES_CONNECTABLE)
+                ), LINE_SIMPLE_TYPES_CONNECTABLE),
+                //17
+                Arguments.of(newHashSet(
+                        new Domino(1, 3),
+                        new Domino(4, 0),
+                        new Domino(5, 1),
+                        new Domino(5, 3),
+                        new Domino(6, 6),
+                        new Domino(1, 1),
+                        new Domino(4, 2),
+                        new Domino(2, 2),
+                        new Domino(0, 2),
+                        new Domino(6, 4),
+                        new Domino(6, 5),
+                        new Domino(5, 0),
+                        new Domino(4, 5),
+                        new Domino(0, 1),
+                        new Domino(4, 3),
+                        new Domino(2, 1),
+                        new Domino(3, 6)
+                ), SIMPLE_TYPES_CONNECTABLE)
         );
     }
 
