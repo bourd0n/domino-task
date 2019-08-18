@@ -4,8 +4,17 @@ import java.util.*;
 
 import static com.bourd0n.domino.DominoConnectionType.*;
 
+/**
+ * Main class to check set of {@link Domino} is can be connected by some way
+ */
 public class DominoConnectionChecker {
 
+    /**
+     * Check set of {@link Domino} to be connected in ring, in line and in simple rules of domino.
+     *
+     * @param dominoes {@link Set} of {@link Domino} to check
+     * @return {@link EnumMap} with keys from {@link DominoConnectionType} enum and boolean answer for each key
+     */
     public EnumMap<DominoConnectionType, Boolean> checkDominoesAreConnectable(Set<Domino> dominoes) {
         validateInputParams(dominoes);
         EnumMap<DominoConnectionType, Boolean> result = new EnumMap<>(DominoConnectionType.class);
@@ -27,6 +36,12 @@ public class DominoConnectionChecker {
         return result;
     }
 
+    /**
+     * Check set of {@link Domino} to be connected in simple rules of domino.
+     *
+     * @param dominoes {@link Set} of {@link Domino} to check
+     * @return true, if dominoes can be connected by Domino rules
+     */
     public boolean checkDominoesAreConnectableSimple(Set<Domino> dominoes) {
         validateInputParams(dominoes);
         DominoGraph dominoGraph = new DominoGraph();
@@ -34,6 +49,12 @@ public class DominoConnectionChecker {
         return dominoGraph.isConnectedSimple();
     }
 
+    /**
+     * Check set of {@link Domino} to be connected in line.
+     *
+     * @param dominoes {@link Set} of {@link Domino} to check
+     * @return true, if dominoes can be connected in line
+     */
     public boolean checkDominoesAreConnectableInLine(Set<Domino> dominoes) {
         validateInputParams(dominoes);
         DominoGraph dominoGraph = new DominoGraph();
@@ -41,6 +62,12 @@ public class DominoConnectionChecker {
         return dominoGraph.isConnectedInLine();
     }
 
+    /**
+     * Check set of {@link Domino} to be connected in ring.
+     *
+     * @param dominoes {@link Set} of {@link Domino} to check
+     * @return true, if dominoes can be connected in ring
+     */
     public boolean checkDominoesAreConnectableInRing(Set<Domino> dominoes) {
         validateInputParams(dominoes);
         if (dominoes.size() == 3) {

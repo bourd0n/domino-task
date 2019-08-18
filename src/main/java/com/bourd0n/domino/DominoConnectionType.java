@@ -1,8 +1,19 @@
 package com.bourd0n.domino;
 
-//todo: javadoc
+/**
+ * Represent different types of Domino connection
+ */
 public enum DominoConnectionType {
+    /**
+     * Connection by simple domino rules
+     */
     SIMPLE,
+    /**
+     * Connection in line
+     */
     LINE,
+    /**
+     * Connection in ring
+     */
     RING
 }

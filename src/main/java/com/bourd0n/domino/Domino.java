@@ -2,6 +2,9 @@ package com.bourd0n.domino;
 
 import java.util.Objects;
 
+/**
+ * Class represents single domino
+ */
 public class Domino {
 
     /**
@@ -16,22 +19,37 @@ public class Domino {
     private final int left;
     private final int right;
 
+    /**
+     * Build new Domino. Note, what Domino(left,right) equals Domino(right, left)
+     *
+     * @param left left number
+     * @param right right number
+     */
     public Domino(int left, int right) {
         if (left < 0 || left > DOMINO_DIMENSION - 1 || right < 0 || right > DOMINO_DIMENSION - 1) {
-            throw new IllegalArgumentException("Domino numbers should be >=0 and <=6, but [" + left + "|" + right + "] was passed");
+            throw new IllegalArgumentException("Domino numbers should be >=0 and <=" + (DOMINO_DIMENSION - 1) + ", but [" + left + "|" + right + "] was passed");
         }
         this.left = left;
         this.right = right;
     }
 
+    /**
+     * @return left number of domino
+     */
     public int left() {
         return left;
     }
 
+    /**
+     * @return right number of domino
+     */
     public int right() {
         return right;
     }
 
+    /**
+     * @return true, if this is double domino (left == right), otherwise false
+     */
     public boolean isDouble() {
         return right == left;
     }
