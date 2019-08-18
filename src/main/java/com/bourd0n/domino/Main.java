@@ -1,9 +1,6 @@
 package com.bourd0n.domino;
 
-import java.util.EnumMap;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 import static com.bourd0n.domino.DominoConnectionType.*;
 

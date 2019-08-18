@@ -13,8 +13,8 @@ public class DominoGenerator {
     }
 
     public Set<Domino> generateDominoSet(int number) {
-        if (number < 2 || number > 28) {
-            throw new IllegalArgumentException("Number of dominoes should be of size >=2 and <=28, but " + number +
+        if (number < 2 || number > Domino.DOMINO_MAX_COUNT) {
+            throw new IllegalArgumentException("Number of dominoes should be of size >=2 and <=" + Domino.DOMINO_MAX_COUNT + ", but " + number +
                     " was passed");
         }
         Set<Domino> result = new HashSet<>(number);
@@ -27,7 +27,7 @@ public class DominoGenerator {
     }
 
     private int getNextDominoInt() {
-        return random.nextInt(7);
+        return random.nextInt(Domino.DOMINO_DIMENSION);
     }
 
 }
