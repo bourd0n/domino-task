@@ -4,7 +4,7 @@ import java.util.*;
 
 import static com.bourd0n.domino.DominoConnectionType.*;
 
-public class DominoTaskResolver {
+public class DominoConnectionChecker {
 
     public EnumMap<DominoConnectionType, Boolean> checkDominoesAreConnectable(Set<Domino> dominoes) {
         EnumMap<DominoConnectionType, Boolean> result = new EnumMap<>(DominoConnectionType.class);

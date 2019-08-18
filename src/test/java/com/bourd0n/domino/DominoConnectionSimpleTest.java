@@ -10,18 +10,17 @@ import static com.google.common.collect.Sets.newHashSet;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//todo: move test data to something (csv, etc?)
-public class DominoTaskResolverConnectionInLineTest {
+public class DominoConnectionSimpleTest {
 
-    private DominoTaskResolver dominoTaskResolver = new DominoTaskResolver();
+    private DominoConnectionChecker dominoConnectionChecker = new DominoConnectionChecker();
 
     @ParameterizedTest
     @MethodSource
-    public void testDominoConnectedInLine(Set<Domino> dominoes) {
-        assertTrue(dominoTaskResolver.checkDominoesAreConnectableInLine(dominoes));
+    public void testDominoConnectedSimple(Set<Domino> dominoes) {
+        assertTrue(dominoConnectionChecker.checkDominoesAreConnectableSimple(dominoes));
     }
 
-    private static Stream<Set<Domino>> testDominoConnectedInLine() {
+    private static Stream<Set<Domino>> testDominoConnectedSimple() {
         return Stream.of(
                 newHashSet(new Domino(1, 2), new Domino(2, 3)),
                 newHashSet(new Domino(1, 2), new Domino(2, 2)),
@@ -41,9 +40,26 @@ public class DominoTaskResolverConnectionInLineTest {
                         new Domino(2, 1),
                         new Domino(1, 3),
                         new Domino(1, 4),
+                        new Domino(5, 1)
+                ),
+                newHashSet(
+                        new Domino(1, 1),
+                        new Domino(2, 1),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
                         new Domino(5, 2),
                         new Domino(5, 1),
                         new Domino(3, 4)
+                ),
+                newHashSet(
+                        new Domino(1, 1),
+                        new Domino(2, 1),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(5, 2),
+                        new Domino(5, 1),
+                        new Domino(0, 5),
+                        new Domino(0, 6)
                 ),
                 newHashSet(
                         new Domino(2, 1),
@@ -74,12 +90,12 @@ public class DominoTaskResolverConnectionInLineTest {
 
     @ParameterizedTest
     @MethodSource
-    public void testDominoNotConnectedInLine(Set<Domino> dominoes) {
-        assertFalse(dominoTaskResolver.checkDominoesAreConnectableInLine(dominoes));
+    public void testDominoNotConnectedSimple(Set<Domino> dominoes) {
+        assertFalse(dominoConnectionChecker.checkDominoesAreConnectableSimple(dominoes));
     }
 
 
-    private static Stream<Set<Domino>> testDominoNotConnectedInLine() {
+    private static Stream<Set<Domino>> testDominoNotConnectedSimple() {
         return Stream.of(
                 newHashSet(new Domino(1, 2), new Domino(3, 3)),
                 newHashSet(new Domino(1, 2), new Domino(0, 0)),
@@ -121,23 +137,6 @@ public class DominoTaskResolverConnectionInLineTest {
                         new Domino(6, 6),
                         new Domino(4, 5),
                         new Domino(1, 1)
-                ),
-                newHashSet(
-                        new Domino(1, 1),
-                        new Domino(2, 1),
-                        new Domino(1, 3),
-                        new Domino(1, 4),
-                        new Domino(5, 1)
-                ),
-                newHashSet(
-                        new Domino(1, 1),
-                        new Domino(2, 1),
-                        new Domino(1, 3),
-                        new Domino(1, 4),
-                        new Domino(5, 2),
-                        new Domino(5, 1),
-                        new Domino(0, 5),
-                        new Domino(0, 6)
                 )
         );
     }

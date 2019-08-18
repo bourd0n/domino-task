@@ -11,14 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //todo: move test data to something (csv, etc?)
-public class DominoTaskResolverConnectionInRingTest {
+public class DominoConnectionInRingTest {
 
-    private DominoTaskResolver dominoTaskResolver = new DominoTaskResolver();
+    private DominoConnectionChecker dominoConnectionChecker = new DominoConnectionChecker();
 
     @ParameterizedTest
     @MethodSource
     public void testDominoConnectedInRing(Set<Domino> dominoes) {
-        assertTrue(dominoTaskResolver.checkDominoesAreConnectableInRing(dominoes));
+        assertTrue(dominoConnectionChecker.checkDominoesAreConnectableInRing(dominoes));
     }
 
     //todo: add more tests
@@ -63,7 +63,7 @@ public class DominoTaskResolverConnectionInRingTest {
     @ParameterizedTest
     @MethodSource
     public void testDominoNotConnectedInRing(Set<Domino> dominoes) {
-        assertFalse(dominoTaskResolver.checkDominoesAreConnectableInRing(dominoes));
+        assertFalse(dominoConnectionChecker.checkDominoesAreConnectableInRing(dominoes));
     }
 
 

@@ -14,9 +14,9 @@ import static com.google.common.collect.Sets.newHashSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //todo: move test data to something (csv, etc?)
-public class DominoTaskResolverConnectionTest {
+public class DominoConnectionTest {
 
-    private final DominoTaskResolver dominoTaskResolver = new DominoTaskResolver();
+    private final DominoConnectionChecker dominoConnectionChecker = new DominoConnectionChecker();
 
     private static final EnumMap<DominoConnectionType, Boolean> RING_LINE_SIMPLE_TYPES_CONNECTABLE = new EnumMap<>(DominoConnectionType.class);
     private static final EnumMap<DominoConnectionType, Boolean> LINE_SIMPLE_TYPES_CONNECTABLE = new EnumMap<>(DominoConnectionType.class);
@@ -45,7 +45,7 @@ public class DominoTaskResolverConnectionTest {
     @ParameterizedTest
     @MethodSource
     public void testDominoConnected(Set<Domino> dominoes, EnumMap<DominoConnectionType, Boolean> expected) {
-        assertEquals(expected, dominoTaskResolver.checkDominoesAreConnectable(dominoes));
+        assertEquals(expected, dominoConnectionChecker.checkDominoesAreConnectable(dominoes));
     }
 
     private static Stream<Arguments> testDominoConnected() {
