@@ -4,11 +4,29 @@ import java.util.*;
 
 import static com.bourd0n.domino.DominoConnectionType.*;
 
-//todo: solve three problems in one pass ?
-//todo: seems like if RING ok => LINE ok => SIMPLE ok. Think about it in future
 public class DominoTaskResolver {
 
-    public boolean checkDominoesAreConnectable(Set<Domino> dominoes) {
+    public EnumMap<DominoConnectionType, Boolean> checkDominoesAreConnectable(Set<Domino> dominoes) {
+        EnumMap<DominoConnectionType, Boolean> result = new EnumMap<>(DominoConnectionType.class);
+        result.put(RING, false);
+        result.put(LINE, false);
+        result.put(SIMPLE, false);
+        if (checkDominoesAreConnectableInRing(dominoes)) {
+            //if RING connected => LINE and SIMPLE connected to
+            result.put(RING, true);
+            result.put(LINE, true);
+            result.put(SIMPLE, true);
+        } else if (checkDominoesAreConnectableInLine(dominoes)) {
+            //if LINE connected => SIMPLE connected to
+            result.put(LINE, true);
+            result.put(SIMPLE, true);
+        } else if (checkDominoesAreConnectableSimple(dominoes)) {
+            result.put(SIMPLE, true);
+        }
+        return result;
+    }
+
+    public boolean checkDominoesAreConnectableSimple(Set<Domino> dominoes) {
         return checkDominoesAreConnectableInternal(dominoes, SIMPLE);
     }
 
@@ -20,7 +38,6 @@ public class DominoTaskResolver {
         return checkDominoesAreConnectableInternal(dominoes, RING);
     }
 
-    //todo: boolean -> enum
     private boolean checkDominoesAreConnectableInternal(Set<Domino> dominoes, DominoConnectionType connectionType) {
         if (dominoes == null) {
             throw new IllegalArgumentException("Set of dominoes should be not null");
@@ -29,13 +46,15 @@ public class DominoTaskResolver {
             throw new IllegalArgumentException("Set of dominoes should be of size >=2 and <=28, but " + dominoes.size() +
                     " was passed");
         }
-
+        if (connectionType == RING && dominoes.size() == 3) {
+            return false;
+        }
         for (Domino domino : dominoes) {
             Set<Domino> remainingDominoes = new HashSet<>(dominoes);
             remainingDominoes.remove(domino);
 
             //if double - can add next domino to 4 sides
-            List<Integer> currentTailNumbers = domino.isDouble() && connectionType == SIMPLE ?
+            List<Integer> currentTailNumbers = connectionType == SIMPLE && domino.isDouble()  ?
                     Arrays.asList(domino.left(), domino.left(), domino.left(), domino.left())
                     : Arrays.asList(domino.left(), domino.right());
 
@@ -67,13 +86,13 @@ public class DominoTaskResolver {
         }
 
         List<Integer> currentTailNumbers = currentSolution.getTailNumbers();
-        for (
-                Domino domino : remainingDominoes) {
+        for (Domino domino : remainingDominoes) {
             List<Integer> nextTailNumbers;
             if (currentTailNumbers.contains(domino.left())) {
                 nextTailNumbers = new ArrayList<>(currentSolution.getTailNumbers());
                 if (connectionType == SIMPLE && domino.isDouble()) {
-                    //add as double. Аdd as non double - looks like no reason for first problem
+                    //add as double. Аdd as non double - no reason for SIMPLE problem
+                    //add as double for RING and LINE - no reason
                     //add 2 sides to add new domino
                     nextTailNumbers.add(domino.left());
                     nextTailNumbers.add(domino.left());
