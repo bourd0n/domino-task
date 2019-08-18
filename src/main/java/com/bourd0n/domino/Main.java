@@ -29,6 +29,6 @@ public class Main {
         System.out.println();
         System.out.println("Dominoes are connectable in ring: " + result.get(RING));
         System.out.println("Dominoes are connectable in line: " + result.get(LINE));
-        System.out.println("Dominoes are connectable: " + result.get(SIMPLE));
+        System.out.println("Dominoes are connectable by Domino rules: " + result.get(SIMPLE));
     }
 }
