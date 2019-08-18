@@ -13,7 +13,6 @@ import static com.bourd0n.domino.DominoConnectionType.*;
 import static com.google.common.collect.Sets.newHashSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//todo: move test data to something (csv, etc?)
 public class DominoConnectionTest {
 
     private final DominoConnectionChecker dominoConnectionChecker = new DominoConnectionChecker();

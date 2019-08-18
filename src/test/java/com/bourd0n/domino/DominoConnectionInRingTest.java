@@ -10,7 +10,6 @@ import static com.google.common.collect.Sets.newHashSet;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//todo: move test data to something (csv, etc?)
 public class DominoConnectionInRingTest {
 
     private DominoConnectionChecker dominoConnectionChecker = new DominoConnectionChecker();
@@ -21,7 +20,6 @@ public class DominoConnectionInRingTest {
         assertTrue(dominoConnectionChecker.checkDominoesAreConnectableInRing(dominoes));
     }
 
-    //todo: add more tests
     private static Stream<Set<Domino>> testDominoConnectedInRing() {
         return Stream.of(
                 newHashSet(

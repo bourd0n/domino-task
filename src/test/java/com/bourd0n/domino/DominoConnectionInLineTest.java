@@ -10,7 +10,6 @@ import static com.google.common.collect.Sets.newHashSet;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//todo: move test data to something (csv, etc?)
 public class DominoConnectionInLineTest {
 
     private DominoConnectionChecker dominoConnectionChecker = new DominoConnectionChecker();
