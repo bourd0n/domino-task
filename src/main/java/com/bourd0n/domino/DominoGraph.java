@@ -42,6 +42,49 @@ public class DominoGraph {
         return isConnected(true);
     }
 
+    //todo: think about solution via graph
+    public boolean isConnectedSimple2() {
+        EulerianType eulerianType = checkEulerianType();
+        if (eulerianType == EulerianType.NONE) {
+            return false;
+        }
+        if (eulerianType == EulerianType.CIRCUIT || eulerianType == EulerianType.PATH) {
+            return true;
+        }
+        if (eulerianType == EulerianType.CONNECTED) {
+            for (int i = 0; i < Domino.DOMINO_DIMENSION; i++) {
+                int adjSize = adjacencyList.get(i).size();
+                if (adjSize == 3 || adjSize == 4) {
+                    if (doubles.contains(i)) {
+                        continue;
+                    } else {
+                        //check neighborhood for euler path
+                        //if not - fail
+                        return false;
+                    }
+                } else if (adjSize >= 5) {
+                    if (doubles.contains(i)) {
+                        //number of lists is 3?
+                        long oddDegreeVertexesCount = adjacencyList.stream()
+                                .map(List::size)
+                                .filter(size -> size % 2 != 0)
+                                .count();
+                        if (oddDegreeVertexesCount > 4) {
+                            return false;
+                        }
+                    } else {
+                        //check neighborhood for euler path
+                        //if not - fail
+                        return false;
+                    }
+                }
+            }
+
+        }
+
+        return true;
+    }
+
     public boolean isConnectedInLine() {
         EulerianType eulerianType = checkEulerianType();
         return eulerianType == EulerianType.PATH || eulerianType == EulerianType.CIRCUIT;
@@ -119,19 +162,23 @@ public class DominoGraph {
          */
         CIRCUIT,
         /**
-         * Not eulerian path and not eulerian circuit
+         * Not eulerian path and not eulerian circuit but connected graph
+         */
+        CONNECTED,
+        /**
+         * Not eulerian path and not eulerian circuit and not connected graph
          */
         NONE;
 
         static EulerianType determineByEulerTheorem(long oddDegreeVertexesCount) {
             if (oddDegreeVertexesCount > 2) {
-                return EulerianType.NONE;
+                return EulerianType.CONNECTED;
             } else if (oddDegreeVertexesCount == 2) {
                 return EulerianType.PATH;
             } else if (oddDegreeVertexesCount == 0) {
                 return EulerianType.CIRCUIT;
             } else {
-                return EulerianType.NONE;
+                return EulerianType.CONNECTED;
             }
         }
     }
