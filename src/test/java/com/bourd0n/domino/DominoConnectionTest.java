@@ -203,7 +203,115 @@ public class DominoConnectionTest {
                         new Domino(4, 3),
                         new Domino(2, 1),
                         new Domino(3, 6)
-                ), SIMPLE_TYPES_CONNECTABLE)
+                ), SIMPLE_TYPES_CONNECTABLE),
+                //18
+                Arguments.of(newHashSet(
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5),
+                        new Domino(3, 3)
+                ), NO_TYPES_CONNECTABLE),
+                //19
+                Arguments.of(newHashSet(
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5),
+                        new Domino(3, 3),
+                        new Domino(0, 1)
+                ), NO_TYPES_CONNECTABLE),
+                //20
+                Arguments.of(newHashSet(
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5),
+                        new Domino(3, 3),
+                        new Domino(0, 3)
+                ), NO_TYPES_CONNECTABLE),
+                //21
+                Arguments.of(newHashSet(
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5),
+                        new Domino(3, 3),
+                        new Domino(0, 3),
+                        new Domino(4, 5)
+                ), LINE_SIMPLE_TYPES_CONNECTABLE),
+                //22
+                Arguments.of(newHashSet(
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5),
+                        new Domino(3, 3),
+                        new Domino(1, 1)
+                ), SIMPLE_TYPES_CONNECTABLE),
+                //23
+                Arguments.of(newHashSet(
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4)
+                ), NO_TYPES_CONNECTABLE),
+                //24
+                Arguments.of(newHashSet(
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5)
+                ), NO_TYPES_CONNECTABLE),
+                //25
+                Arguments.of(newHashSet(
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5),
+                        new Domino(1, 1)
+                ), SIMPLE_TYPES_CONNECTABLE),
+                //26
+                Arguments.of(newHashSet(
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5),
+                        new Domino(1, 1),
+                        new Domino(1, 6)
+                ), NO_TYPES_CONNECTABLE),
+                //27
+                Arguments.of(newHashSet(
+                        new Domino(1, 0),
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5),
+                        new Domino(1, 1),
+                        new Domino(4, 5)
+                ), SIMPLE_TYPES_CONNECTABLE),
+                //28
+                Arguments.of(newHashSet(
+                        new Domino(1, 0),
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5),
+                        new Domino(1, 1),
+                        new Domino(4, 5),
+                        new Domino(1, 6)
+                ), SIMPLE_TYPES_CONNECTABLE),
+                //29
+                Arguments.of(newHashSet(
+                        new Domino(1, 0),
+                        new Domino(1, 2),
+                        new Domino(1, 3),
+                        new Domino(1, 4),
+                        new Domino(1, 5),
+                        new Domino(1, 1),
+                        new Domino(4, 5),
+                        new Domino(1, 6),
+                        new Domino(0, 6)
+                ), LINE_SIMPLE_TYPES_CONNECTABLE)
         );
     }
 

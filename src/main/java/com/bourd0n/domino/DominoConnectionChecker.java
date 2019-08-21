@@ -42,11 +42,85 @@ public class DominoConnectionChecker {
      * @param dominoes {@link Set} of {@link Domino} to check
      * @return true, if dominoes can be connected by Domino rules
      */
+    //todo: think about resolution via graph
     public boolean checkDominoesAreConnectableSimple(Set<Domino> dominoes) {
         validateInputParams(dominoes);
-        DominoGraph dominoGraph = new DominoGraph();
-        dominoGraph.addDominoes(dominoes);
-        return dominoGraph.isConnectedSimple();
+        for (Domino domino : dominoes) {
+            Set<Domino> remainingDominoes = new HashSet<>(dominoes);
+            remainingDominoes.remove(domino);
+
+            //if double - can add next domino to 4 sides
+            List<Integer> currentTailNumbers = domino.isDouble()  ?
+                    Arrays.asList(domino.left(), domino.left(), domino.left(), domino.left())
+                    : Arrays.asList(domino.left(), domino.right());
+
+            DominoSolution solution = new DominoSolution(Collections.singletonList(domino), currentTailNumbers);
+
+            solution = processNextDomino(solution, remainingDominoes);
+
+            if (solution != null) {
+                System.out.println("Solution found: " + solution);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private DominoSolution processNextDomino(DominoSolution currentSolution, Set<Domino> remainingDominoes) {
+        if (remainingDominoes.isEmpty()) {
+            return currentSolution;
+        }
+
+        List<Integer> currentTailNumbers = currentSolution.getTailNumbers();
+        for (Domino domino : remainingDominoes) {
+            List<Integer> nextTailNumbers;
+            if (currentTailNumbers.contains(domino.left())) {
+                nextTailNumbers = new ArrayList<>(currentSolution.getTailNumbers());
+                if (domino.isDouble()) {
+                    //add as double. Аdd as non double - no reason for SIMPLE problem
+                    //add as double for RING and LINE - no reason
+                    //add 2 sides to add new domino
+                    nextTailNumbers.add(domino.left());
+                    nextTailNumbers.add(domino.left());
+                } else {
+                    //remove left tail and add right tail
+                    nextTailNumbers.remove((Integer) domino.left());
+                    nextTailNumbers.add(domino.right());
+                }
+
+                DominoSolution nextSolution = createNextSolution(currentSolution,
+                        remainingDominoes, domino, nextTailNumbers);
+                if (nextSolution != null) {
+                    return nextSolution;
+                }
+            }
+
+            if (!domino.isDouble() && currentTailNumbers.contains(domino.right())) {
+                //remove right tail and add left tail
+                nextTailNumbers = new ArrayList<>(currentSolution.getTailNumbers());
+                nextTailNumbers.remove((Integer) domino.right());
+                nextTailNumbers.add(domino.left());
+                DominoSolution nextSolution = createNextSolution(currentSolution,
+                        remainingDominoes, domino, nextTailNumbers);
+                if (nextSolution != null) {
+                    return nextSolution;
+                }
+            }
+
+        }
+        //solution not found
+        return null;
+    }
+
+    private DominoSolution createNextSolution(DominoSolution currentSolution, Set<Domino> remainingDominoes,
+                                              Domino currentProcessedDomino, List<Integer> nextTailNumbers) {
+        List<Domino> currentSolutionDominoes = new ArrayList<>(currentSolution.getDominoes());
+        currentSolutionDominoes.add(currentProcessedDomino);
+        DominoSolution nextSolution = new DominoSolution(currentSolutionDominoes, nextTailNumbers);
+        Set<Domino> newRemainingDominoes = new HashSet<>(remainingDominoes);
+        newRemainingDominoes.remove(currentProcessedDomino);
+        return processNextDomino(nextSolution, newRemainingDominoes);
     }
 
     /**

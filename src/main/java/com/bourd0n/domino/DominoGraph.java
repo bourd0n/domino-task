@@ -33,6 +33,11 @@ public class DominoGraph {
         adjacencyList.get(domino.right()).add(domino.left());
     }
 
+    /**
+     *
+     * @deprecated not correct
+     */
+    @Deprecated
     public boolean isConnectedSimple() {
         return isConnected(true);
     }
